@@ -12,7 +12,7 @@ module load samtools
 RNAseq_bam2fastq_launch.pl "\.sorted.bam$" "'BEGIN {FS=\"\t\"} {print \"@\" $1 \"\n\" $10 \"\n+\n\" $11}'" > bam2fastq
 nano bam2fastq
 
-launcher_creator.py -j  bam2fastq -n  bam2fastq -l bam2fastqj  -q normal -t 12:00:00 -a socialepigenome -e alebesc@gmail.com
+launcher_creator.py -j  bam2fastq -n  bam2fastq -l bam2fastqj  -q normal -t 12:00:00 -a project -e email
 cat bam2fastqj  | perl -pe 's/12way \d+/4way 300/' > bam2fastq.job
 qsub bam2fastq.job
 
@@ -25,7 +25,7 @@ qsub bam2fastq.job
 module load fastqc
 mkdir fastqc_bam
 echo 'fastqc --outdir fastqc_bam *fastq ' > qual
-launcher_creator.py -j qual -n qual -l qual.job -q normal -t 12:00:00 -a socialepigenome -e alebesc@gmail.com
+launcher_creator.py -j qual -n qual -l qual.job -q normal -t 12:00:00 -a project -e email
 qsub qual.job
 
 
@@ -36,13 +36,13 @@ qsub qual.job
 #For partially but fully represented transcriptome ~80K genes many unknown genes
 module load bowtie/2.1.0
 echo 'bowtie2-build MochFull_ref.fasta MochFull_ref' >btb
-launcher_creator.py -j btb -n btb -l btbl -a socialepigenome -e alebesc@gmail.com
+launcher_creator.py -j btb -n btb -l btbl -a project -e email
 qsub btbl
 
 #For fully annotated transcriptome ~29K genes
 module load bowtie/2.1.0
 echo 'bowtie2-build MochFull_ref_hits.fasta MochFull_ref_hits.fasta' >btb2
-launcher_creator.py -j btb2 -n btb2 -l btb2l -a socialepigenome -e alebesc@gmail.com
+launcher_creator.py -j btb2 -n btb2 -l btb2l -a project -e email
 qsub btb2l
 
 
@@ -57,7 +57,7 @@ qsub btb2l
 
 #For fully annotated transcriptome ~29K genes
 iRNAseq_bowtie2map.pl "fastq$" ref/MochFull_ref_hits.fasta> maps
-launcher_creator.py -j  maps -n  maps -l mapsj  -q normal -t 12:00:00 -a socialepigenome -e alebesc@gmail.com
+launcher_creator.py -j  maps -n  maps -l mapsj  -q normal -t 12:00:00 -a project -e email
 cat mapsj  | perl -pe 's/12way \d+/4way 300/' > maps.job
 qsub maps.job
 
@@ -65,7 +65,7 @@ qsub maps.job
 module load bowtie/2.1.0
 iRNAseq_bowtie2map.pl "fastq$" ref/MochFull_ref > maps
 nano maps
-launcher_creator.py -j  maps -n  maps -l mapsj  -q normal -t 12:00:00 -a socialepigenome -e alebesc@gmail.com
+launcher_creator.py -j  maps -n  maps -l mapsj  -q normal -t 12:00:00 -a project -e email
 cat mapsj  | perl -pe 's/12way \d+/4way 300/' > maps.job
 qsub maps.job
 
@@ -76,13 +76,13 @@ ls 5*.sam | perl -pe 's/^(\S+)\.sam$/cp $1\.sam MO$1\.sam/' > s2b
 ls 4*.sam | perl -pe 's/^(\S+)\.sam$/cp $1\.sam MO$1\.sam/' >> s2b
 ls 1576*.sam | perl -pe 's/^(\S+)\.sam$/cp $1\.sam MO$1\.sam/' >> s2b
 ls 1577*.sam | perl -pe 's/^(\S+)\.sam$/cp $1\.sam MO$1\.sam/' >> s2b
-launcher_creator.py -j s2b -n s2b -l s2bjob -q normal -t 12:00:00 -a socialepigenome -e alebesc@gmail.com
+launcher_creator.py -j s2b -n s2b -l s2bjob -q normal -t 12:00:00 -a project -e email
 cat s2bjob | perl -pe 's/12way \d+/1way 24/' > s2b.job
 qsub s2b.job
 
 ls 1*.sam | perl -pe 's/^(\S+)\.sam$/cp $1\.sam MP$1\.sam/' > s2b3
 # delete 1576 and 1577 sam files from this launcher
-launcher_creator.py -j s2b3 -n s2b3 -l s2b3job -q normal -t 12:00:00 -a socialepigenome -e alebesc@gmail.com
+launcher_creator.py -j s2b3 -n s2b3 -l s2b3job -q normal -t 12:00:00 -a project -e email
 cat s2b3job | perl -pe 's/12way \d+/1way 24/' > s2b3.job
 qsub s2b3.job
 
@@ -93,11 +93,11 @@ qsub s2b3.job
 ls MO*.sam | perl -pe 's/^(\S+)\.sam$/samcount.pl $1\.sam ref\/MochFullome_iso_seq2iso.tab aligner=bowtie2 >$1\.counts/' > MOcounts
 ls MP*.sam | perl -pe 's/^(\S+)\.sam$/samcount.pl $1\.sam ref\/MochFullome_iso_seq2iso.tab aligner=bowtie2 >$1\.counts/' > MPcounts
 
-launcher_creator.py -j  MOcounts -n MOcounts -l MOcountsj  -q largemem -t 24:00:00 -a socialepigenome -e alebesc@gmail.com
+launcher_creator.py -j  MOcounts -n MOcounts -l MOcountsj  -q largemem -t 24:00:00 -a project -e email
 cat MOcountsj  | perl -pe 's/12way \d+/1way 24/' > MOcounts.job
 qsub MOcounts.job
 
-launcher_creator.py -j  MPcounts -n MPcounts -l MPcountsj  -q largemem -t 24:00:00 -a socialepigenome -e alebesc@gmail.com
+launcher_creator.py -j  MPcounts -n MPcounts -l MPcountsj  -q largemem -t 24:00:00 -a project -e email
 cat MPcountsj  | perl -pe 's/12way \d+/1way 24/' > MPcounts.job
 qsub MPcounts.job
 
