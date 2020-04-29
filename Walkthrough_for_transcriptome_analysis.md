@@ -1,8 +1,4 @@
-#########################################
-## This Walkthrough generates count files
-## using bowtie2 mapping tool from fastq 
-## files reconstructed from bam in order
-## to run differential transcription analysis
+This Walkthrough generates count files using bowtie2 mapping tool from fastq files reconstructed from bam in order to run differential transcription analysis
 
 
 
