@@ -62,7 +62,7 @@ mkdir genome
 cp Microtus_ochrogaster.MicOch1.0.100.chr.gtf genome
 cp Microtus_ochrogaster.MicOch1.0.dna.toplevel.fa genome
 ```
-INDEXING LV GENOME
+INDEXING Microtus ochrogaster GENOME
 
 ```bash
 srun -p interactive --pty /bin/bash
