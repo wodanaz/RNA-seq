@@ -19,9 +19,7 @@ done
 for file in bam2fq*sh ; do sbatch $file ; done
 ```
 
-################################
-#------------------------------
-# Quality check!!!! 
+#### Quality check!!!! 
 
 module load fastqc
 mkdir fastqc_results
@@ -29,15 +27,19 @@ fastqc --outdir fastqc_results *fastq
 
 
 
-# error in 1625VP.sorted.bam and 5262HT.sorted.bam
+error in 1625VP.sorted.bam and 5262HT.sorted.bam
+
+```bash
 [W::bam_hdr_read] EOF marker is absent. The input is probably truncated
 [E::bgzf_read] Read block operation failed with error 4 after 0 of 4 bytes
 [bam2fq_mainloop] Failed to read bam record.
+```
 
 
 
+Download and unzip genome files
 
-# Download and unzip genome files
+
 ```bash
 wget ftp://ftp.ensembl.org/pub/release-100/fasta/microtus_ochrogaster/dna/Microtus_ochrogaster.MicOch1.0.dna.toplevel.fa.gz
 wget ftp://ftp.ensembl.org/pub/release-100/gff3/microtus_ochrogaster/Microtus_ochrogaster.MicOch1.0.100.chr.gff3.gz
@@ -55,10 +57,7 @@ mkdir genome
 cp Microtus_ochrogaster.MicOch1.0.100.chr.gtf genome
 cp Microtus_ochrogaster.MicOch1.0.dna.toplevel.fa genome
 ```
-
-
-### INDEXING LV GENOME
-
+INDEXING LV GENOME
 
 ```bash
 srun -p interactive --pty /bin/bash
@@ -94,9 +93,6 @@ done
 
 for file in Microtus*sh ; do sbatch $file ; done
 ```
-
-
-# 
 
 
 ```bash
@@ -137,9 +133,7 @@ sed -r 's/ /\t/g' vole_counts.txt | sed -r 's/.counts.txt//g' > vole_counts_fina
 
 ```
 
-
-
-# To Convert gtf to table to be used in R
+To Convert gtf to table to be used in R
 
 
 ```bash
