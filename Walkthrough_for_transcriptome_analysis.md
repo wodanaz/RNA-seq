@@ -17,17 +17,22 @@ done
 
 
 for file in bam2fq*sh ; do sbatch $file ; done
+
+
+# error in 1625VP.sorted.bam and 5262HT.sorted.bam
+
+
+
 ```
 
 #### Quality check!!!! 
 
+```bash
 module load fastqc
 mkdir fastqc_results
 fastqc --outdir fastqc_results *fastq 
+```
 
-
-
-error in 1625VP.sorted.bam and 5262HT.sorted.bam
 
 ```bash
 [W::bam_hdr_read] EOF marker is absent. The input is probably truncated
