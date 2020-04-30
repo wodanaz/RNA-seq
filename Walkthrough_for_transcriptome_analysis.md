@@ -8,8 +8,6 @@ ls -1 *bam > reads.list
 for file in `cat reads.list`; do
 root=`basename $file .sorted.bam`;
 echo '#!/usr/bin/env bash' > bam2fq.$root.sh;
-echo "#SBATCH --mail-type=END" >> bam2fq.$root.sh;
-echo "#SBATCH --mail-user=alebesc@gmail.com" >> bam2fq.$root.sh;
 echo "#SBATCH --mem 5000" >> bam2fq.$root.sh;
 echo "module load samtools" >> bam2fq.$root.sh;
 echo "samtools fastq $file | gzip > $root.fq.gz"  >> bam2fq.$root.sh;
@@ -69,9 +67,6 @@ srun -p interactive --pty /bin/bash
 mkdir STAR_genome
 nano indexing.sh
 #!/usr/bin/env bash
-#SBATCH --mail-type=END
-#SBATCH --mail-user=alebesc@gmail.com
-#SBATCH -c 16
 #SBATCH --mem 50000
 module load STAR
 STAR --runMode genomeGenerate --runThreadN 16  --genomeDir STAR_genome --genomeFastaFiles Microtus_ochrogaster.MicOch1.0.dna.toplevel.fa --sjdbGTFfile Microtus_ochrogaster.MicOch1.0.100.chr.gtf
@@ -88,9 +83,6 @@ ls -1 *fq.gz > fastq.list
 for file in `cat fastq.list`; do
 root=`basename $file .fq.gz`;
 echo '#!/usr/bin/env bash' > Microtus.$root.sh;
-echo "#SBATCH --mail-type=END" >> Microtus.$root.sh;
-echo "#SBATCH --mail-user=alebesc@gmail.com" >> Microtus.$root.sh;
-echo "#SBATCH -c 16" >> Microtus.$root.sh;
 echo "#SBATCH --mem 30000" >> Microtus.$root.sh;
 echo "module load STAR" >> Microtus.$root.sh;
 echo "STAR --runThreadN 16 --outFilterMismatchNoverLmax 0.05 --genomeDir /data/wraycompute/alejo/phd2/genome/STAR_genome  --readFilesIn $file --outFilterMultimapNmax 1 --outSAMtype BAM SortedByCoordinate  --readFilesCommand zcat  --twopassMode Basic --outReadsUnmapped Fastx --outFileNamePrefix ${root}." >> Microtus.$root.sh
@@ -108,8 +100,6 @@ ls *.bam > bams.list
 for file in `cat bams.list`; do
 root=`basename $file .Aligned.sortedByCoord.out.bam`;
 echo '#!/usr/bin/env bash' > $root.bam2count.sh;
-echo "#SBATCH --mail-type=END" >> $root.bam2count.sh;
-echo "#SBATCH --mail-user=alebesc@gmail.com" >> $root.bam2count.sh;
 echo "#SBATCH --mem 15000 " >> $root.bam2count.sh;
 echo "module load HTSeq" >> $root.bam2count.sh;
 echo "htseq-count --format=bam --stranded=no --type=gene --order=pos --idattr=gene_id $file Microtus_ochrogaster.MicOch1.0.100.chr.gtf > $root.counts.txt" >> $root.bam2count.sh
