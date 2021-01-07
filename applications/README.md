@@ -1,6 +1,4 @@
-# Assembling Viruses
-
-### Genome Mapping Experiment of Snail/Twist KO to LV, trimmed TrimGalore and STAR
+# Genome Mapping Experiment of Snail/Twist KO to LV, trimmed TrimGalore and STAR
 
 1. Index Genome Reference
 
