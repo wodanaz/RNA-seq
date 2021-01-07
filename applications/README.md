@@ -7,7 +7,6 @@
 
 srun -p interactive --pty bash
 ```
-
 Indexing Lithechinus variegatus genome
 
 ```bash
@@ -23,20 +22,14 @@ STAR --runMode genomeGenerate --runThreadN 16  --genomeDir STAR_genome --genomeF
 sbatch indexing.sh
 ```
 
-```
-
 
 2. Run fasta quality check with fastqc
 
-```
-module load fastqc
-
-
-
-3. Remove Nextera Adapters
-
 
 ```bash
+
+module load fastqc
+
 ls *.fastq.gz > reads.list
 for i in `cat reads.list`; do
 root=`basename $i .fastq.gz`;
@@ -46,6 +39,7 @@ done
 
 for file in *fastqc.sh ; do sbatch $file ; done
 ```
+3. Remove Nextera Adapters
 
 ```bash
 
