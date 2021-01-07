@@ -8,8 +8,22 @@
 # Go to the Interactive Node:
 
 srun -p interactive --pty bash
+```
+
+Indexing Lithechinus variegatus genome
+
+```bash
+srun -p interactive --pty /bin/bash
+mkdir STAR_genome
+nano indexing.sh
+#!/usr/bin/env bash
+#SBATCH --mem 50000
+module load STAR
+STAR --runMode genomeGenerate --runThreadN 16  --genomeDir STAR_genome --genomeFastaFiles Microtus_ochrogaster.MicOch1.0.dna.toplevel.fa --sjdbGTFfile Microtus_ochrogaster.MicOch1.0.100.chr.gtf
 
 
+sbatch indexing.sh
+```
 
 ```
 
