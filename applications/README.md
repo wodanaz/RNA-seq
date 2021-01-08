@@ -16,7 +16,7 @@ nano indexing.sh
 #!/usr/bin/env bash
 #SBATCH --mem 50000
 module load STAR
-STAR --runMode genomeGenerate --runThreadN 16  --genomeDir STAR_genome --genomeFastaFiles L_var_genome.fa --sjdbGTFfile L_var_noseq.gff --genomeSAindexNbases 13
+STAR --runMode genomeGenerate --runThreadN 16  --genomeDir STAR_Genome --genomeFastaFiles Lvar_scaffolds.fasta --sjdbGTFfile Lvar.braker.pasa.gff --genomeSAindexNbases 13
 
 
 sbatch indexing.sh
