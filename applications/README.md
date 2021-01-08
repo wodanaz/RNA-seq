@@ -89,3 +89,29 @@ for file in LW*sh ; do sbatch $file ; done
 
 
 ```
+
+
+
+
+4. Obtain counts using HTSeq and samtools
+
+```bash
+module load HTSeq
+module load samtools
+
+ls *.bam > bams.list
+for i in `cat bams.list`; do
+root=`basename $i .Aligned.sortedByCoord.out.bam`;
+echo '#!/usr/bin/env bash' > $root.bam2count.sh;
+echo "#SBATCH --mail-type=END" >> $root.bam2count.sh;
+echo "#SBATCH --mail-user=alebesc@gmail.com" >> $root.bam2count.sh;
+echo "#SBATCH --mem 15000 " >> $root.bam2count.sh;
+echo "module load HTSeq" >> $root.bam2count.sh;
+echo "htseq-count --format=bam --stranded=no --type=gene --order=pos --idattr=ID $i STAR_Genome/Lvar.braker.pasa.gff > $root.counts.txt" >> $root.bam2count.sh
+done
+
+for file in *bam2count.sh ; do sbatch $file ; done
+
+
+```
+
