@@ -74,17 +74,17 @@ module load STAR
 ls trim_galore/*_val_1.fq.gz > reads.list
 
 for i in `cat reads.list`; do
-root=`basename $i _val_1.fq.gz`;
+root=`basename $i _R1_001_val_1.fq.gz`;
 echo '#!/usr/bin/env bash' > $root.sh;
 echo "#SBATCH --mail-type=END" >> $root.sh;
 echo "#SBATCH --mail-user=alebesc@gmail.com" >> $root.sh;
 echo "#SBATCH -c 16" >> $root.sh;
 echo "#SBATCH --mem 20000" >> $root.sh;
 echo "module load STAR" >> $root.sh;
-echo "STAR --runThreadN 16 --outFilterMismatchNoverLmax 0.05 --genomeDir /data/mcclaylab/Alejo/snail_twist_experiment_STAR/STAR_Genome  --readFilesIn $i trim_galore/${root}_val_2.fq.gz --outFilterMultimapNmax 1 --outSAMtype BAM SortedByCoordinate --readFilesCommand zcat --twopassMode Basic --outReadsUnmapped Fastx --outFileNamePrefix ${root}." >> $root.sh
+echo "STAR --runThreadN 16 --outFilterMismatchNoverLmax 0.05 --genomeDir /data/mcclaylab/Alejo/snail_twist_experiment_STAR/STAR_Genome  --readFilesIn $i trim_galore/${root}_R2_001_val_2.fq.gz --outFilterMultimapNmax 1 --outSAMtype BAM SortedByCoordinate --readFilesCommand zcat --twopassMode Basic --outReadsUnmapped Fastx --outFileNamePrefix ${root}." >> $root.sh
 done
 
-for file in P*sh ; do sbatch $file ; done
+for file in LW*sh ; do sbatch $file ; done
 
 
 
