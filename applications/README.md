@@ -115,3 +115,21 @@ for file in *bam2count.sh ; do sbatch $file ; done
 
 ```
 
+5. Compile data into a single table
+
+
+```
+
+perl compiler.pl *.counts.txt > allcounts.txt
+
+cp allcounts.txt allcounts.backup.txt
+
+grep "__" allcounts.txt -v > snail_twist_counts.txt
+
+
+
+sed -r 's/ /\t/g' snail_twist_counts.txt | sed -r 's/LW-//g' | sed -r 's/.counts.txt//g' > snail.twist_counts_final.txt
+
+
+
+```
