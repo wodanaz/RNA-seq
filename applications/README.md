@@ -118,7 +118,7 @@ for file in *bam2count.sh ; do sbatch $file ; done
 5. Compile data into a single table
 
 
-```
+```bash
 
 perl compiler.pl *.counts.txt > allcounts.txt
 
@@ -130,6 +130,18 @@ grep "__" allcounts.txt -v > snail_twist_counts.txt
 
 sed -r 's/ /\t/g' snail_twist_counts.txt | sed -r 's/LW-//g' | sed -r 's/.counts.txt//g' > snail.twist_counts_final.txt
 
+
+
+```
+
+
+
+6. Convert gff table to usable reference for R analysis
+
+
+```bash
+
+awk 'BEGIN{FS="\t"}{split($9,a,";"); if($3~"gene") print a[1] "\t"  a[3]  "\t" $1 ":" $4 "-" $5  }'  STAR_Genome/Lvar.braker.pasa.gff  |  sed 's/gene_id "//' | sed 's/"//g' | awk '{print $1 "\t" $3 "\t" $4 }' | sed -r 's/ensembl/none/g'  > lv_gene_annotations.tab
 
 
 ```
