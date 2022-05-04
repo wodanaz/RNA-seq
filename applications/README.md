@@ -115,8 +115,7 @@ echo '#!/usr/bin/env bash' > $root.bam2count.sh;
 echo "#SBATCH --mail-type=END" >> $root.bam2count.sh;
 echo "#SBATCH --mail-user=alebesc@gmail.com" >> $root.bam2count.sh;
 echo "#SBATCH --mem 15000 " >> $root.bam2count.sh;
-echo "module load HTSeq" >> $root.bam2count.sh;
-echo "htseq-count --format=bam --stranded=no --type=gene --order=pos --idattr=ID $i /data/wraycompute/alejo/bulk_RNAseq/genome/Lvar.braker.pasa.gff > $root.counts.txt" >> $root.bam2count.sh
+echo "htseq-count --format=bam --stranded=no --type=gene --order=pos --idattr=Name $i /data/wraycompute/alejo/bulk_RNAseq/genome/Lvar.braker.pasa.gff > $root.counts.txt" >> $root.bam2count.sh
 done
 
 for file in *bam2count.sh ; do sbatch $file ; done
