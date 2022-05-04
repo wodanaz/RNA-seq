@@ -22,7 +22,7 @@ mkdir STAR_Genome
 nano indexing.sh
 #!/usr/bin/env bash
 #SBATCH --mem 50000
-module load STAR
+
 STAR --runMode genomeGenerate --runThreadN 16  --genomeDir STAR_Genome --genomeFastaFiles STAR_Genome/Lvar_scaffolds.fasta --sjdbGTFfile STAR_Genome/Lvar.braker.pasa.gff --genomeSAindexNbases 13 --sjdbOverhang=150
 
 
