@@ -93,7 +93,6 @@ echo "#SBATCH --mail-type=END" >> $root.trim2bam.sh;
 echo "#SBATCH --mail-user=alebesc@gmail.com" >> $root.trim2bam.sh;
 echo "#SBATCH -c 16" >> $root.trim2bam.sh;
 echo "#SBATCH --mem 20000" >> $root.trim2bam.sh;
-echo "module load STAR" >> $root.trim2bam.sh;
 echo "STAR --runThreadN 16 --outFilterMismatchNoverLmax 0.05 --genomeDir /data/wraycompute/alejo/bulk_RNAseq/genome/STAR_Genome --readFilesIn $i trim_galore/${root}_R2_001_val_2.fq.gz --outFilterMultimapNmax 1 --outSAMtype BAM SortedByCoordinate --readFilesCommand zcat --twopassMode Basic --outReadsUnmapped Fastx --outFileNamePrefix ${root}." >> $root.trim2bam.sh
 done
 
