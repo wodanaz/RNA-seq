@@ -30,7 +30,7 @@ conda activate /data/wraycompute/alejo/conda/aleconda
 
 
 for i in `cat reads.list`; do
-root=`basename $i .fq.gz`;
+root=`basename $i _L001_R1_001.fastq.gz`;
 echo '#!/usr/bin/env bash' > $root.trim2bam.sh;
 echo "#SBATCH --mail-type=END" >> $root.trim2bam.sh;
 echo "#SBATCH --mail-user=ab620@duke.edu" >> $root.trim2bam.sh; 
@@ -52,7 +52,7 @@ conda activate /data/wraycompute/alejo/conda/aleconda
 
 
 for i in `cat reads.list`; do
-root=`basename $i .fq.gz`;
+root=`basename $i _L001_R1_001.fastq.gz`;
 echo '#!/usr/bin/env bash' > $root.trim2bam.sh;
 echo "#SBATCH --mail-type=END" >> $root.trim2bam.sh;
 echo "#SBATCH --mail-user=ab620@duke.edu" >> $root.trim2bam.sh; 
